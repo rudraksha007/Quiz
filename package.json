@@ -4,7 +4,9 @@
   "description": "quiz platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start",
+    "both": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
