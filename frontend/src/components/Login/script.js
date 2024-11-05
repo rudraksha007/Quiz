@@ -1,5 +1,5 @@
 function isEmpty(id) {
-    return (document.getElementById(id).value.length == 0)
+    return (document.getElementById(id).value.length === 0)
 }
 
 /** 
@@ -25,13 +25,13 @@ function login(user, pass, submit) {
         pass: document.getElementById(pass).value
     }
     setTimeout(function () {
-        fetch("http:localhost:5000/login", {
+        fetch("/login", {
             method: "POST",
             body: JSON.stringify(body),
             headers: { "Content-type": "application/json" },
             mode: 'cors'
         }).then(async function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 let msg = await response.text();
                 alert(msg);
             }

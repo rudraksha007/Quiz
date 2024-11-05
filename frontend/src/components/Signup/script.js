@@ -2,10 +2,8 @@ function isEmpty(id) {
     return (document.getElementById(id).value.length == 0)
 }
 
-/** 
-* @param {HTMLElement} target
-*/
-function signup(name, user, pass, target) {
+function submit(name, user, pass, target) {
+    target = document.getElementById(target);
     if (isEmpty(name) || isEmpty(user) || isEmpty(pass)) {
         alert("Please fill all the fields");
         return;
@@ -33,7 +31,7 @@ function signup(name, user, pass, target) {
             headers: { "Content-type": "application/json" },
             mode: 'cors'
         }).then(async function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 let msg = await response.text();
                 alert(msg);
             }
@@ -44,4 +42,4 @@ function signup(name, user, pass, target) {
     }, 2000);
 }
 
-export default signup;
+export default submit;
