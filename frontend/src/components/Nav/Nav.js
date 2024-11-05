@@ -13,11 +13,11 @@ function Nav(props) {
 
             <div id="auth-buttons">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox"/>
                     <img src="/pics/sun.png" alt="" className='modeImg' onClick={()=>{props.change();}}/>
                     <img src="/pics/moon.png" alt="" className='modeImg' onClick={()=>{props.change();}} />
                 </label>
-                <Link to="/" id="signup-button" style={{color: navTxt, backgroundColor: butt}}>Sign Up</Link>
+                <Link to="/reg" id="signup-button" style={{color: navTxt, backgroundColor: butt}}>Sign Up</Link>
             </div>
         </header>
         <div id="holder"></div>

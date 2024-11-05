@@ -3,6 +3,9 @@ import Nav from '../Nav/Nav';
 import Main from '../Main/Main';
 import { light, dark } from '../../classes/Mode';
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from '../Login/Login';
+import Signup from '../Signup/signup';
 
 
 function App() {
@@ -27,11 +30,18 @@ function App() {
     }
   }, [isDark]);
   return (
-    <>
-      <Nav mode={mode} change={() => {setDark(!isDark)}} />
-      <Main mode={mode}/>
-      
-    </>
+    <Router>
+      <Nav mode={mode} change={() => { setDark(!isDark) }} />
+      <Routes>
+        <Route exact path='/' element={<Main mode={mode} />}></Route>
+        <Route exact path='/login' element={<Login mode={mode} />}></Route>
+        <Route exact path='/reg' element={<Signup mode={mode} />}></Route>
+
+        {/* <Route exact path='/login' Component={Login}></Route> */}
+        {/* <Route exact path='/reg' Component={Login}></Route> */}
+      </Routes>
+    </Router>
+
   );
 }
 

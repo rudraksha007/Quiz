@@ -12,6 +12,8 @@ header {
 #holder{
     height: 12vh;
     width: 100%;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 #logo {
     font-size: 2em;
@@ -26,7 +28,7 @@ header {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: #53525251;
 }
 #auth-buttons{
     display: flex;
