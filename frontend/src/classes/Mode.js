@@ -1,5 +1,5 @@
 class Mode {
-    constructor(mainBG, navBG, navTxt, button, txt, card, card2) {
+    constructor(mainBG, navBG, navTxt, button, txt, card, card2, submit, submit2) {
         this.mainBG = mainBG;
         this.navBG = navBG;
         this.navTxt = navTxt;
@@ -7,8 +7,10 @@ class Mode {
         this.txt = txt;
         this.card = card;
         this.card2 = card2;
+        this.submit = submit
+        this.submit2 = submit2;
     }
 }
-//                             mainbg      navbg       navtxt    button     maintxt     card        card2
-export const light = new Mode('#FFFFFF', '#2E073F', '#FFFFFF', '#800080', '#000000', '#3f669133', '#3f679196');
-export const dark = new Mode('#2E073F', '#FFFFFF', '#000000', '#f008f0', '#FFFFFF', '#7c7c7c51', '#53525251');
+//                             mainbg      navbg       navtxt    button     txt        card        card2       submit      submit2
+export const light = new Mode('#FFFFFF', '#000000', '#FFFFFF', '#00754b', '#000000', '#aca7cb', '#474554', '#628281', '#7ab71f');
+export const dark = new Mode('#000000', '#FFFFFF', '#000000', '#00c9c8', '#FFFFFF', '#4b4a54', '#2a272a', '#506EE6', '#549914');

@@ -6,6 +6,7 @@
 #topCard h1 {
     font-size: 3em;
     padding-top: 20px;
+    margin-top: 0;
     margin-bottom: 10px;
 }
 
