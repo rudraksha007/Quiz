@@ -57,9 +57,6 @@ a:hover {
 a:active{
     filter: brightness(80%);
 }
-#login-button {
-    color: white;
-}
 
 #signup-button {
     color: white;

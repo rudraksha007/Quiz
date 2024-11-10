@@ -5,6 +5,7 @@ const schema = mongoose.Schema({
     Name: String,
     user: String,
     pass: String,
+    autoCode: Number,
     dp:String,
     no_quiz: Number,
     corrects: Number,

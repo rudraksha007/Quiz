@@ -1,18 +1,22 @@
+import { useEffect } from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom';
-// import submit from './script';
+import { Link, useNavigate } from 'react-router-dom';
+let navigate;
 
-
-function Signup({ mode }) {
+function Signup({ mode, profile }) {
+    navigate = useNavigate();
     const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border: 'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60%', color: mode.txt, transition: 'all 0.5s', color: mode.navTxt }
-
+    useEffect(()=>{
+        if(profile!=null){
+            navigate('/dashboard');
+        }
+    },[]);
     return (
         <div id="loginView" style={{ backgroundColor: mode.mainBG }}>
             <div id="loginBox" style={{ backgroundColor: mode.card, boxShadow: '5px 5px 5px gray' }}>
                 <h1 style={{ color: mode.txt }}>Sign Up</h1>
                 <form id="inputs" action="/" method="post">
                     <input type="text" name="name" id="name1" placeholder="Full Name" className="input" style={inputStyle} />
-                    {/* <p id="exists">user already exists</p> */}
                     <input type="text" name="user" id="user" placeholder="Username" className="input" style={inputStyle} />
                     <input type="password" name="pass" id="pass" placeholder="Password" className="input" style={inputStyle} />
                     <input type='button' value="Sign Up" className="input" id="submit" style={Object.assign({ ...inputStyle }, { backgroundColor: mode.button })} onClick={() => { submit('name1', 'user', 'pass', 'submit') }} />
@@ -27,6 +31,9 @@ export default Signup;
 function isEmpty(id) {
     return (document.getElementById(id).value.length == 0)
 }
+// function submit(){
+
+// }
 
 function submit(name, user, pass, target) {
     target = document.getElementById(target);
@@ -59,7 +66,7 @@ function submit(name, user, pass, target) {
         }).then(async function (response) {
             if (response.status === 200) {
                 if (window.confirm("Account was created successfully. Proceed to login?")){
-                    window.location.href = './login'
+                    navigate('/login');
                 }
             }
             else if(response.status===409){

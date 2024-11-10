@@ -5,7 +5,8 @@ import { light, dark } from '../../classes/Mode';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from '../Login/Login';
-import Signup from '../Signup/signup';
+import Signup from '../Signup/Signup';
+import Dash from '../Dashboard/Dash';
 
 
 function App() {
@@ -13,13 +14,15 @@ function App() {
   const [isDark, setDark] = useState(false);
   const [profile, setProfile] = useState(null);
   useEffect(() => { swithMode(isDark, setMode) }, [isDark]);
+  
   return (
     <Router>
-      <Nav mode={mode} change={() => { setDark(!isDark) }} profile = {profile}/>
+      <Nav mode={mode} change={() => { setDark(!isDark) }} profile = {profile} setProfile={setProfile}/>
       <Routes>
-        <Route exact path='/' element={<Main mode={mode} />}></Route>
-        <Route exact path='/login' element={<Login mode={mode} setProfile={setProfile}/>}></Route>
-        <Route exact path='/reg' element={<Signup mode={mode} />}></Route>
+        <Route exact path='/' element={<Main mode={mode} profile={profile}/>}></Route>
+        <Route exact path='/login' element={<Login mode={mode} profile = {profile} setProfile={setProfile}/>}></Route>
+        <Route exact path='/reg' element={<Signup mode={mode} profile={profile}/>}></Route>
+        <Route exact path='/dashboard' element={<Dash mode={mode} profile={profile}/>}></Route>
       </Routes>
     </Router>
 

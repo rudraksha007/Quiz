@@ -1,21 +1,31 @@
+import { useEffect } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+let navigate;
 
-function Login({ mode, setProfile }) {
-    const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border:'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60%', color: mode.txt, transition: 'all 0.5s' }
+function Login({ mode, profile, setProfile }) {
+
+    const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border: 'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60%', color: mode.txt, transition: 'all 0.5s' }
+    navigate = useNavigate();
+    useEffect(() => {
+        // console.log(profile);
+        if (profile != null) {
+            navigate('/dashboard');
+        }
+    }, []);
     return (
         <div id="loginView" style={{ backgroundColor: mode.mainBG }}>
             <div id="loginBox" style={{ backgroundColor: mode.card, boxShadow: '5px 5px 5px gray' }}>
-                <h1 style={{color:mode.txt}}>Login</h1>
+                <h1 style={{ color: mode.txt }}>Login</h1>
                 <form id="inputs" action="/" method="post">
                     <input type="text" name="user" id="user" placeholder="Username" className="input" style={inputStyle} />
                     <input type="password" name="pass" id="pass" placeholder="Password" className="input" style={inputStyle} />
                     <div id="keep">
                         <input type="checkbox" name="keep" id="check" />
-                        <p style={{color:mode.txt}}>Keep Me Logged In</p>
+                        <p style={{ color: mode.txt }}>Keep Me Logged In</p>
                     </div>
-                    <input type='button' value="Login" className="input" id="submit" style={Object.assign({...inputStyle}, {backgroundColor:mode.submit})} onClick={()=>login('user',  'pass', 'submit', setProfile)}/>
-                    <Link to="/reg" className="input" style={Object.assign({...inputStyle}, {backgroundColor:mode.submit2})}>Sign Up</Link>
+                    <input type='button' value="Login" className="input" id="submit" style={Object.assign({ ...inputStyle }, { backgroundColor: mode.submit })} onClick={() => submit(setProfile)} />
+                    <Link to="/reg" className="input" style={Object.assign({ ...inputStyle }, { backgroundColor: mode.submit2 })}>Sign Up</Link>
                 </form>
             </div>
         </div>
@@ -23,28 +33,38 @@ function Login({ mode, setProfile }) {
 }
 export default Login;
 
-function isEmpty(id) {
-    return (document.getElementById(id).value.length === 0)
-}
-
-function login(user, pass, submit, setProfile) {
-    var target = document.getElementById(submit);
-    if (isEmpty(user) || isEmpty(pass)) {
+function submit(setProfile) {
+    let user = document.getElementById("user");
+    let pass = document.getElementById("pass");
+    if (user.value.length === 0 || pass.value.length === 0) {
         alert("Please fill all the fields");
         return;
     }
-    if (document.getElementById(user).textContent.includes(" ")) {
+    if (user.value.includes(" ")) {
         alert("Username can't contain spaces");
         return;
     }
-    target.value = "";
-    target.style.backgroundImage = "url('/pics/loading.gif')"
-    target.style.backgroundRepeat = "no-repeat";
-    target.style.backgroundSize = "contain";
-    target.style.backgroundPosition = "center";
+    let checked = document.getElementById('check').checked;
+    console.log(checked);
+    if (login(user.value, pass.value, null, checked, setProfile)) {
+        navigate('/dashboard');
+    }
+}
+
+function login(user, pass, autoCode, checked, setProfile) {
+    var but = document.getElementById("submit");
+    if (but != null) {
+        but.value = "";
+        but.style.backgroundImage = "url('/pics/loading.gif')"
+        but.style.backgroundRepeat = "no-repeat";
+        but.style.backgroundSize = "contain";
+        but.style.backgroundPosition = "center";
+    }
     var body = {
-        user: document.getElementById(user).value,
-        pass: document.getElementById(pass).value
+        user: user,
+        pass: pass,
+        autoCode: autoCode,
+        checked: checked
     }
     setTimeout(function () {
         fetch("/login", {
@@ -54,15 +74,28 @@ function login(user, pass, submit, setProfile) {
             mode: 'cors'
         }).then(async function (response) {
             if (response.status === 200) {
-                response.json().then((data)=>{
+                response.json().then((data) => {
                     console.log(data);
-                    alert('login success');
                     setProfile(data);
+                    if (data.autoCode != null && checked) {
+                        let x = JSON.stringify({ user: user, autoCode: data.autoCode })
+                        document.cookie = `user=${x};max-age=${60 * 60 * 24 * 365}`;
+                        console.log(x);
+                    }
+                    return true;
                 });
             }
+            else {
+                alert('Last Used password on this device is wrong')
+                return false;
+            }
         }).finally(() => {
-            target.style.backgroundImage = "none";
-            target.value = "Login";
+            if (but != null) {
+                but.style.backgroundImage = "none";
+                but.value = "Login";
+            }
         })
     }, 2000);
-};
+}
+
+export { login }

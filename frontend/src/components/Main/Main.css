@@ -42,6 +42,7 @@
     width: 25%;
     min-width: 225px;
     border-radius: 5px;
+    z-index: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,6 +50,7 @@
 }
 .feature:hover{
     filter: brightness(80%);
+    /* z-index: 0; */
 }
 .feature img{
     width: 70%;
