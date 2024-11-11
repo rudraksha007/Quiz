@@ -14,6 +14,7 @@ function Nav({ mode, change, profile, setProfile }) {
                     return;
                 }
             });
+            if (cookie.length==0)return;
             var body = { user: cookie.user, pass: null, autoCode: cookie.autoCode, checked: false };
             fetch("/login", {
                 method: "POST",
@@ -24,7 +25,10 @@ function Nav({ mode, change, profile, setProfile }) {
                 if (response.status === 200) {
                     response.json().then((data) => {setProfile(data);});
                 }
-                else alert('Last Used password on this device is wrong')
+                else {
+                    alert('Last Used password on this device is wrong');
+                    document.cookie = `user={};max-age=${60 * 60 * 24 * 365}`
+                }
             })
         }
     }, []);

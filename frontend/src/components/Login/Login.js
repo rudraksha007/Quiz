@@ -8,7 +8,6 @@ function Login({ mode, profile, setProfile }) {
     const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border: 'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60%', color: mode.txt, transition: 'all 0.5s' }
     navigate = useNavigate();
     useEffect(() => {
-        // console.log(profile);
         if (profile != null) {
             navigate('/dashboard');
         }
@@ -80,10 +79,11 @@ function login(user, pass, autoCode, checked, setProfile) {
                     if (data.autoCode != null && checked) {
                         let x = JSON.stringify({ user: user, autoCode: data.autoCode })
                         document.cookie = `user=${x};max-age=${60 * 60 * 24 * 365}`;
-                        console.log(x);
                     }
+
                     return true;
                 });
+                navigate('/dashboard');
             }
             else {
                 alert('Last Used password on this device is wrong')

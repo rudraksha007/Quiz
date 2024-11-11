@@ -23,6 +23,7 @@ function App() {
         <Route exact path='/login' element={<Login mode={mode} profile = {profile} setProfile={setProfile}/>}></Route>
         <Route exact path='/reg' element={<Signup mode={mode} profile={profile}/>}></Route>
         <Route exact path='/dashboard' element={<Dash mode={mode} profile={profile}/>}></Route>
+        <Route exact path='/create' element={<Dash mode={mode} profile={profile}/>}></Route>
       </Routes>
     </Router>
 
