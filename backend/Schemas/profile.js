@@ -6,12 +6,11 @@ const schema = mongoose.Schema({
     user: String,
     pass: String,
     autoCode: Number,
-    ips:[String],
     dp:String,
     no_quiz: Number,
     corrects: Number,
     wrongs: Number,
-    quizes: [quizSchema]
+    quizes: [String]
 });
 
 export default mongoose.model('profile', schema);

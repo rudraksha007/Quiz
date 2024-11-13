@@ -14,7 +14,7 @@ function Nav({ mode, change, profile, setProfile }) {
                     return;
                 }
             });
-            if (cookie.length==0)return;
+            if (Object.keys(cookie).length==0)return;
             var body = { user: cookie.user, pass: null, autoCode: cookie.autoCode, checked: false };
             fetch("/login", {
                 method: "POST",

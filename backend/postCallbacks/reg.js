@@ -11,7 +11,7 @@ function reg(req, res) {
         }
         else {
             console.log('new user here')
-            let user = new profile({ Name: body.name, user: body.user, pass: body.pass,autoCode:-1,ips:[], dp:"", no_quiz: 0, corrects: 0, wrongs: 0, quizes: [] });
+            let user = new profile({ Name: body.name, user: body.user, pass: body.pass, autoCode: -1, dp: "", no_quiz: 0, corrects: 0, wrongs: 0, quizes: [] });
             user.save();
             res.status(200).send('profile created successfully');
         }

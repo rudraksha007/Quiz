@@ -9,7 +9,7 @@ function Profile({ mode, profile }) {
             <div id="profile" onClick={slide} >
                 <img src={dp} alt="" id='dp' />
             </div>
-            <div id="sidebar" style={{ backgroundColor: mode.mainbg2 }}>
+            <div id="sidebar" style={{ backgroundColor: mode.mainbg3 }}>
                 <img src={dp} alt="" />
                 <div style={{color:mode.txt}}>Account Settings</div>
                 <div style={{color:mode.txt}}>My Quizzes</div>

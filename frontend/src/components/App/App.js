@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import Dash from '../Dashboard/Dash';
+import Creator from '../Creator/Creator';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <Route exact path='/login' element={<Login mode={mode} profile = {profile} setProfile={setProfile}/>}></Route>
         <Route exact path='/reg' element={<Signup mode={mode} profile={profile}/>}></Route>
         <Route exact path='/dashboard' element={<Dash mode={mode} profile={profile}/>}></Route>
-        <Route exact path='/create' element={<Dash mode={mode} profile={profile}/>}></Route>
+        <Route exact path='/create' element={<Creator mode={mode} profile={profile}/>}></Route>
       </Routes>
     </Router>
 
