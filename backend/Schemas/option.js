@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.Schema({
+const opSchema = mongoose.Schema({
     text: String,
     isCorrect: Boolean
 });
 
-export default schema;
+export default opSchema;

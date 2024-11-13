@@ -112,7 +112,9 @@
     margin-left: 20px;
     height: 20px;
 }
-
+.hoverable{
+    cursor: pointer;
+}
 .hoverable:hover{
     filter: brightness(80%);
 }
@@ -130,4 +132,8 @@
     text-align: center;
     align-content: center;
     border-radius: 10px;
+}
+.qsOp li img{
+    height: 20px;
+    cursor: pointer;
 }
