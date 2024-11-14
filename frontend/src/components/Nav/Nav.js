@@ -1,12 +1,12 @@
 import "./Nav.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import { useEffect } from "react";
 
 function Nav({ mode, change, profile, setProfile }) {
     useEffect(() => {
         let data = document.cookie;
-        if (profile == null && data.length != 0) {
+        if (profile === null && data.length !== 0) {
             let cookie = null;
             data.split(';').forEach((e) => {
                 if (e.startsWith('user=')) {
@@ -14,7 +14,7 @@ function Nav({ mode, change, profile, setProfile }) {
                     return;
                 }
             });
-            if (Object.keys(cookie).length==0)return;
+            if (Object.keys(cookie).length===0)return;
             var body = { user: cookie.user, pass: null, autoCode: cookie.autoCode, checked: false };
             fetch("/login", {
                 method: "POST",
@@ -23,7 +23,8 @@ function Nav({ mode, change, profile, setProfile }) {
                 mode: 'cors'
             }).then(async function (response) {
                 if (response.status === 200) {
-                    response.json().then((data) => {setProfile(data);});
+                    response.json().then((data) => {console.log(data);
+                    setProfile(data);});
                 }
                 else {
                     alert('Last Used password on this device is wrong');

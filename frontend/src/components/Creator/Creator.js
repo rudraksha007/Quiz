@@ -7,12 +7,11 @@ import { useNavigate } from 'react-router-dom';
 export let add = null;
 function Creator({ mode, profile }) {
     const navigate = useNavigate();
-    if(profile==null){
-        navigate('/');
-        return;
-    }
-    const [questions, setQuestions] = useState([]);
     useEffect(() => {
+        if(profile==null){
+            navigate('/');
+            return;
+        }
         let icons = document.getElementsByClassName('addQsIcon');
         let addqs = document.getElementsByClassName('addQs');
         let qs = document.getElementsByClassName('qs');
@@ -34,6 +33,7 @@ function Creator({ mode, profile }) {
             }
         }
     }, [mode]);
+    const [questions, setQuestions] = useState([]);
     add = (ref) => {
         console.log(Array.from(document.getElementById('createCont').children));
         let index = Array.from(document.getElementById('createCont').children).indexOf(ref) - 1;
@@ -88,7 +88,7 @@ function submit(element, profile, navigate) {
         body: JSON.stringify(data),
         headers: { "Content-type": "application/json" }
     }).then((res) => {
-        if(res.status==200){
+        if(res.status===200){
             navigate('/dashboard')
         }
         else{

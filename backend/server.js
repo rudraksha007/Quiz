@@ -6,12 +6,14 @@ const port = 5000;
 import reg from './postCallbacks/reg.js';
 import login from './postCallbacks/login.js';
 import create from './postCallbacks/create.js';
+import dashboardData from './postCallbacks/dashboardData.js';
 
 app.use(express.json());
 
 app.post('/reg', (req, res) => {reg(req,res)});
 app.post('/login', (req, res)=>{login(req.body, res)});
 app.post('/create', (req, res)=>{create(req, res)});
+app.post('/dash', (req, res)=>{dashboardData(req, res)});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

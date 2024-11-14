@@ -19,10 +19,6 @@ function Login({ mode, profile, setProfile }) {
                 <form id="inputs" action="/" method="post">
                     <input type="text" name="user" id="user" placeholder="Username" className="input" style={inputStyle} />
                     <input type="password" name="pass" id="pass" placeholder="Password" className="input" style={inputStyle} />
-                    <div id="keep">
-                        <input type="checkbox" name="keep" id="check" />
-                        <p style={{ color: mode.txt }}>Keep Me Logged In</p>
-                    </div>
                     <input type='button' value="Login" className="input" id="submit" style={Object.assign({ ...inputStyle }, { backgroundColor: mode.submit })} onClick={() => submit(setProfile)} />
                     <Link to="/reg" className="input" style={Object.assign({ ...inputStyle }, { backgroundColor: mode.submit2 })}>Sign Up</Link>
                 </form>
@@ -43,14 +39,12 @@ function submit(setProfile) {
         alert("Username can't contain spaces");
         return;
     }
-    let checked = document.getElementById('check').checked;
-    console.log(checked);
-    if (login(user.value, pass.value, null, checked, setProfile)) {
+    if (login(user.value, pass.value, null, setProfile)) {
         navigate('/dashboard');
     }
 }
 
-function login(user, pass, autoCode, checked, setProfile) {
+function login(user, pass, autoCode, setProfile) {
     var but = document.getElementById("submit");
     if (but != null) {
         but.value = "";
@@ -63,7 +57,7 @@ function login(user, pass, autoCode, checked, setProfile) {
         user: user,
         pass: pass,
         autoCode: autoCode,
-        checked: checked
+        checked: true
     }
     setTimeout(function () {
         fetch("/login", {
@@ -76,10 +70,8 @@ function login(user, pass, autoCode, checked, setProfile) {
                 response.json().then((data) => {
                     console.log(data);
                     setProfile(data);
-                    if (data.autoCode != null && checked) {
-                        let x = JSON.stringify({ user: user, autoCode: data.autoCode })
-                        document.cookie = `user=${x};max-age=${60 * 60 * 24 * 365}`;
-                    }
+                    let x = JSON.stringify({ user: user, autoCode: data.autoCode })
+                    document.cookie = `user=${x};max-age=${60 * 60 * 24 * 365}`;
                     
                     return true;
                 });

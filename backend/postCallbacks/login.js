@@ -8,12 +8,10 @@ function login(body, res) {
         }
         if (body.pass != null || body.autoCode != null) {
             if (body.pass == data.pass) {
-                if (body.checked) {
-                    let autoCode = Math.round(Math.random() * 100000000);
-                    data.autoCode = autoCode;
-                    profile.updateOne({ user: body.user }, { autoCode: autoCode }).exec();
-                }
-                else data.autoCode = null;
+                let autoCode = Math.round(Math.random() * 100000000);
+                data.autoCode = autoCode;
+                profile.updateOne({ user: body.user }, { autoCode: autoCode }).exec();
+
                 res.status(200).json({
                     name: data.Name,
                     user: data.user,
@@ -23,12 +21,13 @@ function login(body, res) {
                     correct: data.correct,
                     wrongs: data.wrongs
                 });
-            } 
-            else if(body.autoCode == data.autoCode){
+            }
+            else if (body.autoCode == data.autoCode) {
                 res.status(200).json({
                     name: data.Name,
                     user: data.user,
                     dp: data.dp,
+                    autoCode: data.autoCode,
                     no_quiz: data.no_quiz,
                     correct: data.correct,
                     wrongs: data.wrongs
