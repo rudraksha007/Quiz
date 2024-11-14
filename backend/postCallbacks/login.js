@@ -14,10 +14,25 @@ function login(body, res) {
                     profile.updateOne({ user: body.user }, { autoCode: autoCode }).exec();
                 }
                 else data.autoCode = null;
-                res.status(200).json(data);
+                res.status(200).json({
+                    name: data.Name,
+                    user: data.user,
+                    dp: data.dp,
+                    no_quiz: data.no_quiz,
+                    autoCode: data.autoCode,
+                    correct: data.correct,
+                    wrongs: data.wrongs
+                });
             } 
             else if(body.autoCode == data.autoCode){
-                res.status(200).json(data);
+                res.status(200).json({
+                    name: data.Name,
+                    user: data.user,
+                    dp: data.dp,
+                    no_quiz: data.no_quiz,
+                    correct: data.correct,
+                    wrongs: data.wrongs
+                });
             }
             else {
                 res.status(401).send("Wrong password entered");

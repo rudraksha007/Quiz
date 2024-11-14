@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const opSchema = mongoose.Schema({
     text: String,
-    isCorrect: Boolean
+    isCorrect: Boolean,
 });
 
-export default opSchema;
+export default mongoose.model('option', opSchema);

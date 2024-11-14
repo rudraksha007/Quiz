@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose, { Schema } from "mongoose"
 import quizSchema from "./quiz.js";
 
 const schema = mongoose.Schema({
@@ -10,7 +10,7 @@ const schema = mongoose.Schema({
     no_quiz: Number,
     corrects: Number,
     wrongs: Number,
-    quizes: [String]
+    quizes: [{type: Schema.Types.ObjectId, ref:'quiz'}]
 });
 
 export default mongoose.model('profile', schema);

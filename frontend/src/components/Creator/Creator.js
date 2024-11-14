@@ -2,16 +2,22 @@ import { useEffect, useState } from 'react';
 import './Creator.css'
 import { light } from '../../classes/Mode';
 import QsPallet from './QsPallet.js'
+import { useNavigate } from 'react-router-dom';
 
 export let add = null;
 function Creator({ mode, profile }) {
+    const navigate = useNavigate();
+    if(profile==null){
+        navigate('/');
+        return;
+    }
     const [questions, setQuestions] = useState([]);
     useEffect(() => {
         let icons = document.getElementsByClassName('addQsIcon');
         let addqs = document.getElementsByClassName('addQs');
         let qs = document.getElementsByClassName('qs');
         let qsop = document.getElementsByClassName('qsOp');
-        if (icons.length == 0) return;
+        if (icons.length === 0) return;
         let filter = '';
         if (mode === light) {
             filter = '';
@@ -62,7 +68,7 @@ function Creator({ mode, profile }) {
                 </div>
                 <div id='buttons'>
                     {/* <div className='hoverable' style={{backgroundColor: mode.button, color:mode.navTxt}}>Save</div> */}
-                    <div className='hoverable' style={{ backgroundColor: mode.button, color: mode.navTxt }} onClick={(e) => submit(e.currentTarget)}>Publish</div>
+                    <div className='hoverable' style={{ backgroundColor: mode.button, color: mode.navTxt }} onClick={(e) => submit(e.currentTarget, profile, navigate)}>Publish</div>
                 </div>
             </div>
         </>
@@ -70,20 +76,25 @@ function Creator({ mode, profile }) {
 }
 export default Creator;
 
-function submit(element) {
+function submit(element, profile, navigate) {
     gifbg(element);
-    let data = compile();
-    if (data==null){
+    let data = compile(profile);
+    if (data === null) {
         resetbg(element);
         return;
     }
-    fetch('/create',{
+    fetch('/create', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { "Content-type": "application/json" }
-    }).then((res)=>{
-        //handle response
-    }).finally(()=>{
+    }).then((res) => {
+        if(res.status==200){
+            navigate('/dashboard')
+        }
+        else{
+            alert(res.text);
+        }
+    }).finally(() => {
         resetbg(element);
     });
 }
@@ -100,7 +111,7 @@ function resetbg(but) {
     but.value = 'Publish';
     but.style.backgroundImage = 'none';
 }
-function compile() {
+function compile(profile) {
     let qs = document.getElementsByClassName('qsStatement');
     let qsOp = document.getElementsByClassName('qsOp');
     let name = document.getElementById('quizTitle').value;
@@ -110,14 +121,15 @@ function compile() {
         alert('please make atleast 1 qs');
         return null;
     }
-    if (name == '' || desc == '') {
+    if (name === '' || desc === '') {
         alert('Please enter Title and Description of the Quiz');
         return null;
     }
-    let jsonData = { name: name, time: time, desc: desc, questions: {} };
+
+    let jsonData = { author: profile.user, name: name, time: time, desc: desc, questions: {} };
     for (let i = 0; i < qs.length; i++) {
         let val = qs.item(i).value;
-        if (val == '') {
+        if (val === '') {
             alert('Please fill all fields');
             qs.item(i).style.borderColor = 'red';
             return null;
@@ -126,7 +138,7 @@ function compile() {
         let correctFound = false;
         qsOp.item(i).childNodes.forEach((option) => {
             val = option.childNodes[0].value;
-            if (val == '') {
+            if (val === '') {
                 alert('Please fill all fields');
                 option.childNodes[0].style.borderColor = 'red';
                 return null;

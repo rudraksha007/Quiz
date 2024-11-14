@@ -80,7 +80,7 @@ function login(user, pass, autoCode, checked, setProfile) {
                         let x = JSON.stringify({ user: user, autoCode: data.autoCode })
                         document.cookie = `user=${x};max-age=${60 * 60 * 24 * 365}`;
                     }
-
+                    
                     return true;
                 });
                 navigate('/dashboard');

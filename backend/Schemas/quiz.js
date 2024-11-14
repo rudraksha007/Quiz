@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
-import qSchema from "./question.js";
+import mongoose, { Schema } from "mongoose";
 
 const quizSchema = mongoose.Schema({
-    questions: [qSchema],
     author: String,
+    title: String,
+    desc: String,
+    questions: [{type:Schema.Types.ObjectId, ref:'question'}],
     time: Number
 });
 
-export default quizSchema;
+export default mongoose.model('quiz', quizSchema);

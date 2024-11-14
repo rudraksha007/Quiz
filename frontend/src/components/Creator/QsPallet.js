@@ -16,7 +16,7 @@ class QsPallet extends React.Component{
     render() {
         let filter = '';
         let color = '';
-        if (this.props.mode == dark) {
+        if (this.props.mode === dark) {
             filter = 'invert()';
             color = 'white';
         } else {
@@ -57,7 +57,7 @@ class QsPallet extends React.Component{
     markCorrect(event){
         event.currentTarget.style.backgroundColor = 'lime';
         event.currentTarget.isCorrect = true;
-        if(this.correct!=null &&this.correct!=event.currentTarget){
+        if(this.correct!==null &&this.correct!==event.currentTarget){
             this.correct.style.backgroundColor = '';
             this.correct.isCorrect = false;
         }

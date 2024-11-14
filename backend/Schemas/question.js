@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import option from './option.js'
 
 const qSchema = mongoose.Schema({
-    question: String,
+    statement: String,
     type: String,
-    options: [option]
+    options: [{type:Schema.Types.ObjectId, ref:'option'}],
 });
 
-export default qSchema;
+export default mongoose.model('question', qSchema);
