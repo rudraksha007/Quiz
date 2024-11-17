@@ -13,7 +13,7 @@ function Profile({ mode, profile, setProfile }) {
             </div>
             <div id="sidebar" style={{ backgroundColor: mode.mainbg3 }}>
                 <img src={dp} alt="" />
-                <div style={{color:mode.txt}}>Account</div>
+                <div style={{color:mode.txt}} onClick={()=>navigate('/account')}>Account</div>
                 <div style={{color:mode.txt}} onClick={()=>logout(setProfile, navigate)}>Logout</div>
             </div>
         </>

@@ -1,9 +1,12 @@
 import "./Nav.css";
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function Nav({ mode, change, profile, setProfile }) {
+    let loginState = useRef();
+    loginState.current = 'none';
+    let navigate = useNavigate();
     useEffect(() => {
         let data = document.cookie;
         if (profile === null && data.length !== 0) {
@@ -16,6 +19,7 @@ function Nav({ mode, change, profile, setProfile }) {
             });
             if (Object.keys(cookie).length===0)return;
             var body = { user: cookie.user, pass: null, autoCode: cookie.autoCode, checked: false };
+            loginState.current = 'logging';
             fetch("/login", {
                 method: "POST",
                 body: JSON.stringify(body),
@@ -23,16 +27,25 @@ function Nav({ mode, change, profile, setProfile }) {
                 mode: 'cors'
             }).then(async function (response) {
                 if (response.status === 200) {
-                    response.json().then((data) => {console.log(data);
+                    loginState.current = 'done';
+                    response.json().then((data) => {
                     setProfile(data);});
                 }
                 else {
+                    loginState.current = 'failed';
                     alert('Last Used password on this device is wrong');
                     document.cookie = `user={};max-age=${60 * 60 * 24 * 365}`
                 }
             })
         }
     }, []);
+    useEffect(()=>{
+        if (profile==null && loginState.current!='logging'){
+            console.log('from navigation');
+            navigate('/');
+            return;
+        }
+    }, [profile])
     let navTxt = mode.navTxt;
     let nav = mode.navBG;
     let butt = mode.button;

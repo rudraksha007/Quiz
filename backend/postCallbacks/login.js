@@ -18,7 +18,7 @@ function login(body, res) {
                     dp: data.dp,
                     no_quiz: data.no_quiz,
                     autoCode: data.autoCode,
-                    correct: data.correct,
+                    corrects: data.corrects,
                     wrongs: data.wrongs
                 });
             }
@@ -29,7 +29,7 @@ function login(body, res) {
                     dp: data.dp,
                     autoCode: data.autoCode,
                     no_quiz: data.no_quiz,
-                    correct: data.correct,
+                    corrects: data.corrects,
                     wrongs: data.wrongs
                 });
             }

@@ -9,6 +9,7 @@ import Signup from '../Signup/Signup';
 import Dash from '../Dashboard/Dash';
 import Creator from '../Creator/Creator';
 import QuizApp from '../Quiz/QuizApp';
+import Account from '../Account/Account';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route exact path='/dashboard' element={<Dash mode={mode} profile={profile}/>}></Route>
         <Route exact path='/create' element={<Creator mode={mode} profile={profile}/>}></Route>
         <Route exact path='/quiz' element={<QuizApp mode={mode} profile={profile}/>}></Route>
+        <Route exact path='/account' element={<Account mode={mode} profile={profile}/>}></Route>
       </Routes>
     </Router>
 
