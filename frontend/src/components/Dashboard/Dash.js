@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './dash.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Quiz from './Quiz';
 import Popup from './Popup';
 
 class Dash extends React.Component {
+    sec = null;
     constructor(props) {
         super(props);
         this.state = {
@@ -37,6 +38,10 @@ class Dash extends React.Component {
                     });
                 });
             }
+            else{
+                this.sec = <Navigate dest={'/'}/>
+                this.forceUpdate();
+            }
         }, 1000);
     }
     render() {
@@ -68,6 +73,7 @@ class Dash extends React.Component {
                     </div>
                 </div>
                 <Popup mode={mode} data={this.state.data}/>
+                {this.sec}
             </>
         );
     }
@@ -78,3 +84,11 @@ class Dash extends React.Component {
     }
 }
 export default Dash;
+
+function Navigate({dest}){
+    let nav = useNavigate();
+    useEffect(()=>{
+        nav(dest);
+    }, []);
+    return(<></>)
+}

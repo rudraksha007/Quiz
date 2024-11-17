@@ -5,7 +5,6 @@ async function dashboardData(req, res){
     
     var body = req.body;
     var data = await profile.findOne({ user: body.user });
-    // console.log(body);
     
     if (data.length == 0) {
         res.status(404).send('User does not exist');
@@ -17,7 +16,6 @@ async function dashboardData(req, res){
             var response = {}
             var i = 0;
             for (const quiz of quizzes){
-                console.log(quiz);
                 response[i] = {title: quiz.title, author: quiz.author, desc: quiz.desc, time: quiz.time, id:quiz._id}
                 i++;
             }

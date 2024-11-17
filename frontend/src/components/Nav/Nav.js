@@ -1,5 +1,5 @@
 import "./Nav.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import { useEffect } from "react";
 
@@ -33,7 +33,6 @@ function Nav({ mode, change, profile, setProfile }) {
             })
         }
     }, []);
-
     let navTxt = mode.navTxt;
     let nav = mode.navBG;
     let butt = mode.button;
@@ -50,7 +49,7 @@ function Nav({ mode, change, profile, setProfile }) {
                         <img src="/pics/sun.png" alt="" className='modeImg' onClick={() => { change(); }} />
                         <img src="/pics/moon.png" alt="" className='modeImg' onClick={() => { change(); }} />
                     </label>
-                    {profile!=null ? (<Profile mode={mode} profile={profile} />) :
+                    {profile!=null ? (<Profile mode={mode} profile={profile} setProfile={setProfile}/>) :
                         (<Link to="/reg" id="signup-button" style={{ color: navTxt, backgroundColor: butt }}>Sign Up</Link>)}
                 </div>
             </header>

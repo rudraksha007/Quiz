@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import './profile.css'
 let dp = '';
-function Profile({ mode, profile }) {
+function Profile({ mode, profile, setProfile }) {
+    let navigate = useNavigate();
     if (profile.dp == '') {
         dp = '/pics/profilePlaceholder.png';
     }
@@ -11,10 +13,8 @@ function Profile({ mode, profile }) {
             </div>
             <div id="sidebar" style={{ backgroundColor: mode.mainbg3 }}>
                 <img src={dp} alt="" />
-                <div style={{color:mode.txt}}>Account Settings</div>
-                <div style={{color:mode.txt}}>My Quizzes</div>
-                <div style={{color:mode.txt}}>Leaderboard</div>
-                <div style={{color:mode.txt}}>Logout</div>
+                <div style={{color:mode.txt}}>Account</div>
+                <div style={{color:mode.txt}} onClick={()=>logout(setProfile, navigate)}>Logout</div>
             </div>
         </>
     );
@@ -32,4 +32,10 @@ function slide() {
         document.getElementById('sidebar').style.transform = '';
         document.getElementById('dp').src = dp;
     }
+}
+
+function logout(setProfile, navigate){
+    setProfile(null);
+    navigate('/');
+    document.cookie = `user={};max-age=${60 * 60 * 24 * 365}`
 }

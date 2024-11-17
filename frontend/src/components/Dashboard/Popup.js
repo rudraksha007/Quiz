@@ -11,9 +11,9 @@ function Popup({mode, data}){
                     <span><b>Author:</b> {data.author}</span>
                     <span><b>Time:</b> {data.time} Mins</span>
                 </div>
-                <div className="quizDesc">
+                <p className="quizDesc">
                     {data.desc}
-                </div>
+                </p>
                 <span className="hoverable" style={{backgroundColor:mode.button, color:mode.navTxt}} onClick={()=>{
                     navigate('/quiz', {state: {id:data.id}});
                 }}>Start Quiz</span>

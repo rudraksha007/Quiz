@@ -138,7 +138,9 @@
 .quizDesc{
     margin-top: 10px;
     flex-grow: 1;
+    max-width: 95%;
     overflow-y: auto;
+    word-wrap: break-word;
 }
 #popup>img{
     height: 30px;
