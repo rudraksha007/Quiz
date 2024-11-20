@@ -13,12 +13,20 @@ async function dashboardData(req, res){
     if (body.autoCode != null) {
         if (body.autoCode == data.autoCode) {
             var quizzes = await quiz.find().sort({_id:-1});
-            var response = {}
+            var response = {quizzes:{}, leaderboard:{}};
             var i = 0;
             for (const quiz of quizzes){
-                response[i] = {title: quiz.title, author: quiz.author, desc: quiz.desc, time: quiz.time, id:quiz._id}
+                response.quizzes[i] = {title: quiz.title, author: quiz.author, desc: quiz.desc, time: quiz.time, id:quiz._id}
                 i++;
             }
+            var leaderboard = {};
+            var profiles = await profile.find().sort({corrects:-1});
+            i = 0;
+            for (const prof of profiles){
+                leaderboard[i] = {playerName: prof.Name, corrects: prof.corrects};
+                i++;
+            }
+            response.leaderboard = leaderboard;
             res.status(200).json(response);  
         }
         else {

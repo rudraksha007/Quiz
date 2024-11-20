@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose"
-import quizSchema from "./quiz.js";
 
 const schema = mongoose.Schema({
     Name: String,

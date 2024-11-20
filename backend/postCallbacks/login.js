@@ -13,7 +13,7 @@ function login(body, res) {
                 profile.updateOne({ user: body.user }, { autoCode: autoCode }).exec();
 
                 res.status(200).json({
-                    name: data.Name,
+                    Name: data.Name,
                     user: data.user,
                     dp: data.dp,
                     no_quiz: data.no_quiz,
@@ -24,7 +24,7 @@ function login(body, res) {
             }
             else if (body.autoCode == data.autoCode) {
                 res.status(200).json({
-                    name: data.Name,
+                    Name: data.Name,
                     user: data.user,
                     dp: data.dp,
                     autoCode: data.autoCode,

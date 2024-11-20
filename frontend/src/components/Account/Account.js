@@ -6,23 +6,30 @@ function Account({ mode, profile }) {
     let nav = useNavigate();
     let dp = '/pics/profilePlaceholder.png';
     useEffect(() => {
-        if(profile==null)return;
+        if (profile == null) return;
         dp = profile.dp;
         if (profile.dp != '') {
             dp = profile.dp;
         }
+        console.log(profile);
         
+
     }, [profile])
     return (
-        <div id="accView" style={{ backgroundColor: mode.mainBG }}>
+        <div id="accView" style={{ backgroundColor: mode.mainBG, color: mode.txt}}>
             <div id="stats">
                 <div id="accProfile">
                     <img src={dp} alt="" id='dp' />
                 </div>
-                <div>
-                    <h3>Corrects: {(profile==null)? 0:(profile.corrects)}</h3>
-                    <h3>Wrongs: {(profile==null)? 0:(profile.wrongs)}</h3>
-                </div>
+                {(profile == null) ? <></> :
+                    <div>
+                        <h3>Name: {profile.Name}</h3>
+                        <h3>Username: {profile.user}</h3>
+                        <h3>Corrects: {profile.corrects}</h3>
+                        <h3>Wrongs: {profile.wrongs}</h3>
+                    </div>
+                }
+
             </div>
             <div id="friends"></div>
         </div>
