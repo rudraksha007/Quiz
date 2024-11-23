@@ -51,7 +51,7 @@ function submit(name, user, pass, target) {
     target.style.backgroundSize = "contain";
     target.style.backgroundPosition = "center";
     var body = {
-        name: document.getElementById('name').value,
+        name: document.getElementById('name1').value,
         user: document.getElementById('user').value,
         pass: document.getElementById('pass').value
     }

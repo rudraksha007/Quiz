@@ -19,6 +19,18 @@ async function dashboardData(req, res){
                 response[i] = {title: quiz.title, author: quiz.author, desc: quiz.desc, time: quiz.time, id:quiz._id}
                 i++;
             }
+            var leaderboard = {};
+            var profiles = await profile.find().sort({corrects:-1});
+            i = 0;
+            console.log(profiles);
+            
+            for (const prof of profiles){
+                leaderboard[i] = {playerName: prof.Name, corrects: prof.corrects};
+                i++;
+            }
+            response.leaderboard = leaderboard;
+            console.log(leaderboard);
+            
             res.status(200).json(response);  
         }
         else {
