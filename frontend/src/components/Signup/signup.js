@@ -5,11 +5,12 @@ let navigate;
 
 function Signup({ mode, profile }) {
     navigate = useNavigate();
-    const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border: 'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60%', color: mode.txt, transition: 'all 0.5s', color: mode.navTxt }
+    const inputStyle = { backgroundColor: mode.card2, textDecoration: "none", fontSize: 'small', marginBottom: '2rem', borderStyle: 'solid', border: 'solid 1px', borderColor: mode.txt, borderRadius: '2rem', textAlign: 'center', height: '6%', width: '60', transition: 'all 0.5s', color: mode.navTxt }
     useEffect(()=>{
         if(profile!=null){
             navigate('/dashboard');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
     return (
         <div id="loginView" style={{ backgroundColor: mode.mainBG }}>
@@ -29,7 +30,7 @@ function Signup({ mode, profile }) {
 export default Signup;
 
 function isEmpty(id) {
-    return (document.getElementById(id).value.length == 0)
+    return (document.getElementById(id).value.length === 0)
 }
 // function submit(){
 
